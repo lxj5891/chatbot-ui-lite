@@ -17,13 +17,13 @@ const handler = async (req: Request): Promise<Response> => {
     let messagesToSend = [];
 
     if (messages.length > timesLimit) {
-      return new Response("您已经体验超过10次。", { status: 500 });
+      return new Response("您已经体验超过10次。", { status: 200 });
     }
 
     for (let i = 0; i < messages.length; i++) {
       const message = messages[i];
       if (charCount + message.content.length > charLimit) {
-        return new Response("内容超出限制了, 请使用专业版本。", { status: 500 });
+        return new Response("内容超出限制了, 请使用专业版本。", { status: 200 });
       }
       charCount += message.content.length;
       messagesToSend.push(message);
@@ -34,7 +34,7 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response(stream);
   } catch (error) {
     console.error(error);
-    return new Response("Error", { status: 500 });
+    return new Response("Error", { status: 200 });
   }
 };
 
