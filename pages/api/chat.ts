@@ -15,6 +15,7 @@ const handler = async (req: Request): Promise<Response> => {
     const charLimit = 1200;
     let charCount = 0;
     let messagesToSend = [];
+
     if (messages.length > timesLimit) {
       return new Response("您已经体验超过10次。", { status: 500 });
     }
@@ -22,9 +23,8 @@ const handler = async (req: Request): Promise<Response> => {
     for (let i = 0; i < messages.length; i++) {
       const message = messages[i];
       if (charCount + message.content.length > charLimit) {
-        return new Response("您已经体验超过10次。", { status: 500 });
+        return new Response("内容超出限制了, 请使用专业版本。", { status: 500 });
       }
-      
       charCount += message.content.length;
       messagesToSend.push(message);
     }
