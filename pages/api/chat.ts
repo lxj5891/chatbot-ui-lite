@@ -11,13 +11,14 @@ const handler = async (req: Request): Promise<Response> => {
       messages: Message[];
     };
 
-    const charLimit = 12000;
+    const charLimit = 10;
     let charCount = 0;
     let messagesToSend = [];
 
     for (let i = 0; i < messages.length; i++) {
       const message = messages[i];
       if (charCount + message.content.length > charLimit) {
+        return new Response("您已经体验超过10次，请前往会员中心充值继续使用。", { status: 500 });
         break;
       }
       charCount += message.content.length;
